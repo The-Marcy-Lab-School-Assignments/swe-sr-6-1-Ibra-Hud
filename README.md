@@ -10,6 +10,14 @@ In your response, make sure to compare the time complexities for insertion, remo
 
 ### Response 1
 
+When deciding between **Arrays**, **Linked Lists**, and **Doubly Linked Lists**, the choice depends on factors like time complexity for operations, memory usage, and ease of traversal.
+
+| Data Structure         | Insertion (Front/Middle/End) | Removal (Front/Middle/End) | Random Access | Memory Usage                         | Traversal              |
+| ---------------------- | ---------------------------- | -------------------------- | ------------- | ------------------------------------ | ---------------------- |
+| **Array**              | O(1) / O(n) / O(1)           | O(n) / O(n) / O(1)         | O(1)          | Efficient (contiguous memory)        | Forward (index-based)  |
+| **Singly Linked List** | O(1) / O(n) / O(1)           | O(1) / O(n) / O(1)         | O(n)          | Extra memory for pointers            | Forward (via pointers) |
+| **Doubly Linked List** | O(1) / O(n) / O(1)           | O(1) / O(n) / O(1)         | O(n)          | More memory (extra pointer per node) | Forward & backward     |
+
 ## Prompt 2
 
 Imagine you are developing a web browser's "back" button functionality. When a user clicks "back," the browser should navigate to the previously visited webpage.
@@ -37,3 +45,40 @@ Learning about it is paramount to understanding the foundational aspects of data
 A few classic problems involving a stack are the `isBalanced` and `isPalindrome` functions. Choose one of these functions and provide a solution to it along with a brief lesson explaining how it works.
 
 ### Response 4
+
+```js
+function isBalanced(s) {
+  const stack = [];
+  const pairs = { ")": "(", "}": "{", "]": "[" };
+
+  for (let char of s) {
+    if (char === "(" || char === "{" || char === "[") {
+      stack.push(char);
+    } else if (char === ")" || char === "}" || char === "]") {
+      if (stack.length === 0 || stack.pop() !== pairs[char]) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
+}
+
+console.log(isBalanced("{[()]}")); // true
+console.log(isBalanced("{[(])}")); // false
+console.log(isBalanced("{[}")); // false
+```
+
+Using a Stack:
+
+When I encounter an opening bracket, I push it onto the stack.
+When I encounter a closing bracket, I pop from the stack and check if it matches.
+Stack LIFO Property:
+
+The most recent unmatched opening bracket must match the next closing bracket.
+This ensures that brackets close in the correct order.
+Edge Cases:
+
+An odd-length string is automatically unbalanced.
+A closing bracket appearing first results in false.
+Leftover opening brackets in the stack indicate an imbalance.
